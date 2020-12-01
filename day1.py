@@ -3,11 +3,8 @@ from math import prod
 
 
 def read(filename):
-    list_of_expense = []
     with open(filename) as expense_report:
-        for line in expense_report:
-            list_of_expense.append(int(line))
-    return ExpenseReport(list_of_expense)
+        return ExpenseReport(list(map(int, expense_report)))
 
 
 class ExpenseReport:
