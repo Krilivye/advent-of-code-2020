@@ -1,21 +1,42 @@
-with open("input1.txt") as input_file:
-    arr = []
-    for line in input_file:
-        arr.append(int(line))
+def read_the_expense_report():
+    with open("expense_report.txt") as expense_report:
+        list_of_expense = []
+        for line in expense_report:
+            list_of_expense.append(int(line))
+        return list_of_expense
 
-maxi = 2020
-print(len(set(arr)))
-arr = set(arr)
-print(arr)
 
-for i in arr:
-    if maxi - i in arr:
-        print(i, maxi - i)
-        print(i * (maxi - i))
+def find_the_two_entries_that_sum_to(list_of_expense, year=2020):
+    for i in list_of_expense:
+        if year - i in list_of_expense:
+            return i, year - i
 
-for i in arr:
-    for j in arr:
-        for k in arr:
-            if i + j + k == 2020:
-                print(i, j, k)
-                print(i * j * k)
+
+def what_is_the_product_of_the_three_entries_that_sum_to(
+    list_of_expense, year=2020
+):
+    for i in list_of_expense:
+        for j in list_of_expense:
+            for k in list_of_expense:
+                if i + j + k == year:
+                    return i * j * k
+
+
+if __name__ == "__main__":
+    list_of_expense = read_the_expense_report()
+    year = 2020
+    number1, number2 = find_the_two_entries_that_sum_to(list_of_expense, year)
+    multiplyed = number1 * number2
+
+    print(
+        f"""In this list, the two entries that sum to {year} are {number1} and {number2}.
+Multiplying theme together produces {number1} * {number2} = {multiplyed}, so the correct 
+answer is {multiplyed}"""
+    )
+
+    three_entries = what_is_the_product_of_the_three_entries_that_sum_to(
+        list_of_expense, year
+    )
+    print(
+        f"""Product of three entries that sum to {year} is {three_entries}"""
+    )
