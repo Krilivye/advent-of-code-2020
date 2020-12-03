@@ -4,34 +4,42 @@ from math import prod
 
 def get_land_pattern(filename):
     with open(filename) as pattern:
-        lines = []
-        for line in pattern:
-            lines.append(line.strip())
-    return lines
+        return list(map(lambda x: x.strip(), pattern))
 
 
 def find_next_point(point, slope):
-    # print(point)
     return (point[0] + slope[0], point[1] + slope[1])
 
 
-def is_tree(point, list_of_line):
-    return list_of_line[point[1]][point[0]] == "#"
+def is_tree(point, pattern):
+    return pattern[point[1]][point[0]] == "#"
 
 
-def get_trees_on_the_slope(slope, list_of_line):
+def get_trees_on_the_slope(slope, pattern):
+
+    return len(
+        list(
+            filter(
+                lambda x: is_tree(x, pattern),
+                get_points_of_the_slope(slope, pattern),
+            )
+        )
+    )
+    # count = 0
+    # for point in get_points_of_the_slope(slope, pattern):
+    # if is_tree(point, pattern):
+    # count += 1
+    # return count
+
+
+def get_points_of_the_slope(slope, pattern):
     point = (0, 0)
-    count_trees = 0
-    height = len(list_of_line)
-    width = len(list_of_line[0])
-
-    # print(height, width)
+    height = len(pattern)
+    width = len(pattern[0])
     while point[1] < height:
-        if is_tree(point, list_of_line):
-            count_trees += 1
+        yield point
         point = find_next_point(point, slope)
         point = adjust_width(point, width)
-    return count_trees
 
 
 def adjust_width(point, width):
