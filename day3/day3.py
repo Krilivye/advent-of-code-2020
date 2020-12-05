@@ -25,11 +25,6 @@ def get_trees_on_the_slope(slope, pattern):
             )
         )
     )
-    # count = 0
-    # for point in get_points_of_the_slope(slope, pattern):
-    # if is_tree(point, pattern):
-    # count += 1
-    # return count
 
 
 def get_points_of_the_slope(slope, pattern):
