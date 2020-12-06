@@ -3,11 +3,25 @@ example = ("abcx", "abcy", "abcz")
 
 def read_a_group(group):
 
-    set_of_questions = set()
+    list_of_questions = []
 
     for people in group:
-        set_of_questions.update(list(people))
-    return set_of_questions
+        list_of_questions.append(list(people))
+    return list_of_questions
+
+
+def common_in_group(group):
+    set_of_question = set()
+    for question in group:
+        set_of_question.update(question)
+    return set_of_question
+
+
+def same_in_group(group):
+    init = set(group[0])
+    for question in group[1:]:
+        init = init & set(question)
+    return init
 
 
 def divide_batch_by_blank_line(filefeeder):
@@ -36,5 +50,5 @@ def read_batch(filename):
 if __name__ == "__main__":
     all_groups = read_batch("puzzle_input.txt")
 
-    print(all_groups)
-    print(sum([len(group) for group in all_groups]))
+    print(sum([len(common_in_group(group)) for group in all_groups]))
+    print(sum([len(same_in_group(group)) for group in all_groups]))
