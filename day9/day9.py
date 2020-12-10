@@ -1,5 +1,4 @@
 from itertools import combinations
-from functools import lru_cache
 import sys
 
 
@@ -24,7 +23,6 @@ def get_bad_guy(data, size):
             return value
 
 
-@lru_cache(128)
 def get_intermediate_sum(start, target):
     intermedate_sum = []
     for i in data[start:]:
@@ -42,9 +40,9 @@ if __name__ == "__main__":
     data = get_data()
     size = 25
     bad = get_bad_guy(data, size)
+    print(bad)
 
     start = 0
-    print(len(data))
     sys.setrecursionlimit(1150)
     inter = get_intermediate_sum(start, bad)
     print(sum([min(inter), max(inter)]))
